@@ -16,7 +16,7 @@ To get the most out of this tutorial, you'll need to be familiar with the follow
 
 First, you will want to create an app on you [Sinch Dashboard](https://www.sinch.com/dashboard/). Take note of the application key and secret, as we will need them later.
 
-The starter project for this tutorial can be found on Github. Once you've downloaded that, go ahead and install the necessary pods using CocoaPods with the included **Podfile**. You can do so through Terminal with the command `pod install`. Now there should be an XCode workspace that you can use.
+The starter project for this tutorial can be found on [Github](https://github.com/sinch/ios-call-your-twitter-friends). Once you've downloaded that, go ahead and install the necessary pods using CocoaPods with the included **Podfile**. You can do so through Terminal with the command `pod install`. Now there should be an XCode workspace that you can use.
 
 ## 2. Twitter Integration
 
@@ -175,7 +175,7 @@ Now we're ready to call `getFriends` in `viewDidLoad`:
 
 Alright, now a list of people who the user follows should appear in the table view.
 
-That's great and all, but let's add a bit of flair to the UI. In some iOS applications, like the Music app, you'll find table views with cells that have subtitiles. Let's do that here. The main text in each table view cell will be the user's name, and the subtext will be the user's username on Twitter.
+That's great and all, but let's add a bit of flair to the UI. In some iOS applications, like the Music app, you'll find table views with cells that have subtitles. Let's do that here. The main text in each table view cell will be the user's name, and the subtext will be the user's username on Twitter.
 
 Find the method named `tabelView:cellForRowAtIndexPath:`. You should see a line that says:
 
@@ -400,7 +400,7 @@ Let's finish off the call screen now. Go to **DetailViewController.m** and find 
         }
 ```
 
-It's pretty simple to handle the IBActions with Sinch calls. You can jsut add one line to each method:
+It's pretty simple to handle the IBActions with Sinch calls. You can just add one line to each method:
 
 ```objective-c
 - (IBAction)AnswerAction:(id)sender {
@@ -427,6 +427,6 @@ Finally, let's take advantage of some handy delegate methods to change some of t
 ```
 ![call-out](img/Call-out.png)
 
-That's it! You've created an app that helps users call their Twitter friends. As you can see, it's simple to integrate Sinch into your app. There are a few ways that you can improve on this app, but it get's the job done :)
+That's it! You've created an app that helps users call their Twitter friends. As you can see, it's simple to integrate Sinch into your app. There are a few ways that you can improve on this app, but it gets the job done.
 
-One feature you would want to add to this app is Managed Push. You can learn more about Managed Push with SinchService [here](https://github.com/sinch/ios-managedpush-with-sinchservice). You can also find more Sinch tutorials on the [Sinch Tutorial Site](https://www.sinch.com/tutorials/) or on [Sinch's Github](https://github.com/sinch).
+One feature you would want to add to this app is Managed Push. You can learn more about Managed Push with SinchService [here](https://github.com/sinch/ios-managedpush-with-sinchservice). You can also find more Sinch tutorials on the [Sinch Tutorial Site](https://www.sinch.com/tutorials/) or on [Sinch's Github](https://github.com/sinch). Of course, you can also find us on Twitter @SinchDev.
