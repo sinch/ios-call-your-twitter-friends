@@ -14,7 +14,7 @@ To get the most out of this tutorial, you'll need to be familiar with the follow
 
 ## 1. Setup
 
-First, you will want to create an app on you [Sinch Dashboard](https://www.sinch.com/dashboard/). Take note of the application key and secret, as we will need them later.
+First, you will want to create an app on your [Sinch Dashboard](https://www.sinch.com/dashboard/). Take note of the application key and secret, as we will need them later.
 
 The starter project for this tutorial can be found on [Github](https://github.com/sinch/ios-call-your-twitter-friends). Once you've downloaded that, go ahead and install the necessary pods using CocoaPods with the included **Podfile**. You can do so through Terminal with the command `pod install`. Now there should be an XCode workspace that you can use.
 
