@@ -1,6 +1,6 @@
 # Build an iOS Twitter App to Call Your Friends
 
-Twitter is a great way to connect people, but it's a shame that users can't connect with voice calling. Sure, you can tag each other or go back and forth with direct messages, but that can get a bit impersonal at times. In this tutorial, we'll be making an app that lets the user call people who they follow on Twitter. We'll do this using Sinch [app-to-app calling](https://www.sinch.com/products/voice-api/app-to-app-calling/) to privately place calls using the user's Twitter username. 
+Twitter is a great way for people to connect, but it's a shame that they can't connect with voice calling. Sure, you can tag each other or direct message (DM) back and forth, but that can get a bit impersonal at times. In this tutorial, we'll be making an app that lets users call people who they follow on Twitter. We'll do this using Sinch [app-to-app calling](https://www.sinch.com/products/voice-api/app-to-app-calling/) to privately place calls with the user's Twitter handle. 
 
 To get the most out of this tutorial, you'll need to be familiar with the following areas:
 
@@ -14,15 +14,15 @@ To get the most out of this tutorial, you'll need to be familiar with the follow
 
 ## 1. Setup
 
-First, you will want to create an app on your [Sinch Dashboard](https://www.sinch.com/dashboard/). Take note of the application key and secret, as we will need them later.
+Create an app on your [Sinch Dashboard](https://www.sinch.com/dashboard/). Take note of the application key and secret, as you will need them later.
 
-The starter project for this tutorial can be found on [Github](https://github.com/sinch/ios-call-your-twitter-friends). Once you've downloaded that, go ahead and install the necessary pods using CocoaPods with the included **Podfile**. You can do so through Terminal with the command `pod install`. Now there should be an XCode workspace that you can use.
+The starter project for this tutorial can be found on [GitHub](https://github.com/sinch/ios-call-your-twitter-friends). Once you've downloaded that, go ahead and install the necessary pods using CocoaPods with the included **Podfile**. You can do so through Terminal with the command `pod install`. Now there should be an XCode workspace that you can use.
 
-## 2. Twitter Integration
+## 2. Twitter integration
 
-Here is an overview of how we'll set up Twitter in this app. First, we'll request permission to use the Twitter account associated with the user's device. Once this permission has been granted, the user will be presented with a list of people who they follow. Later on we'll let these entries be selectable, and the selected person will be called. 
+Here is an overview of how we'll set up Twitter in this app. To begin, we'll request permission to use the Twitter account associated with the user's device. Once this permission has been granted, the user will be presented with a list of people whom they follow. Later on, we'll let these entries be selectable and the selected person be called. 
 
-To start, let's go to **LoginViewController.m**. Locate the method called `ContinueAction`. Go ahead and add to the method body so it looks as follows:
+Now go to **LoginViewController.m**. Locate the method called `ContinueAction` and add to the method body so it looks as follows:
 
 ```objective-c
 - (IBAction)ContinueAction:(id)sender {
@@ -53,7 +53,7 @@ To start, let's go to **LoginViewController.m**. Locate the method called `Conti
 }
 ```
 
-Here, all we do is request Twitter permissions once the "continue" button is clicked. If there are multiple Twitter accounts on the same device, we just default to the first one. We pass the Twitter account as a sender for a segue so we can use it later on to request a list of people who the user follows.
+Here, all we do is request Twitter permissions once you click the "Continue" button. If there are multiple Twitter accounts on the same device, we default to the first one. We pass the Twitter account as a sender for a segue so we can use it later on to request a list of people whom the user follows.
 
 Now, locate `prepareForSegue:sender:`. We'll need to set the user's Twitter account, so let's add some code to do that:
 
@@ -73,9 +73,9 @@ You'll get an error since we don't have a twitterAccount property right now. Let
 
 Great, now the user will be asked to grant the app access to Twitter. If access is granted, the app will move to the next screen.
 
-The next step is to get a list of all the user's friends (whoever they follow on Twitter).
+Next, get a list of everyone the user follows.
 
-Head to **MasterViewController.m**. Let's add a method to get all of the user's friends using a Twitter API request.
+Head to **MasterViewController.m**. Let's add a method to get everyone the user follows using a Twitter API request.
 
 ```objective-c
 - (void) getFriends {
@@ -90,7 +90,7 @@ Head to **MasterViewController.m**. Let's add a method to get all of the user's 
 }
 ```
 
-This request will give us a list of user ID's for the user's friends. To get that data in an array and fill the table, replace the `// 2` comment with the following code:
+This request will give us a list of user IDs for the user's friends. To organize that data in an array and fill the table, replace the `// 2` comment with the following code:
 
 ```objective-c
             if ([urlResponse statusCode] == 429) {
@@ -109,7 +109,7 @@ This request will give us a list of user ID's for the user's friends. To get tha
             }
 ```
 
-You should get an error, saying that we haven't defined `fillTable`. Now is a great time to define it, so add the following method stub:
+You should get an error saying that we haven't defined `fillTable`. Now is a great time to define it, so add the following method stub:
 
 ```objective-c
 - (void) fillTable:(NSArray *) friendList {
@@ -131,7 +131,7 @@ Now, add the following for-loop:
     }
 ```
 
-For every friend in the friend list, we'll go ahead and make a request to store that friend's info. To store the info, replace the `// 3` comment with:
+For every user followed in the list, we'll go ahead and make a request to store that user’s info. To store the info, replace the `// 3` comment with:
 
 ```objective-c
                 if ([urlResponse statusCode] == 429) {
@@ -162,7 +162,7 @@ For every friend in the friend list, we'll go ahead and make a request to store 
                 }
 ```
 
-Here, we store a friend's information in a object. I've gone ahead an defined a class called CFriend for this tutorial.
+Here, we store a user's information in an object. I've gone ahead and defined a class called CFriend for this tutorial.
 
 Now we're ready to call `getFriends` in `viewDidLoad`:
 
@@ -173,7 +173,7 @@ Now we're ready to call `getFriends` in `viewDidLoad`:
 }
 ```
 
-Alright, now a list of people who the user follows should appear in the table view.
+Alright, now a list of people whom the user follows should appear in the table view.
 
 That's great and all, but let's add a bit of flair to the UI. In some iOS applications, like the Music app, you'll find table views with cells that have subtitles. Let's do that here. The main text in each table view cell will be the user's name, and the subtext will be the user's username on Twitter.
 
@@ -189,20 +189,20 @@ Change that to read as follows:
 UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
 ```
 
-Now we'll return a cell that can display subtext. Now, before the return statement, add the following two lines:
+Now we'll return a cell that can display subtext. Before the return statement, add the following two lines:
 
 ```objective-c
 [cell.textLabel setFont:[UIFont systemFontOfSize:20]];
 cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@", object.username];
 ```
 
-Now that's better!
+Bingo!
 
 ![friends](img/Friends.png)
 
 So far we've integrated Twitter into our app. Now let's add calling.
 
-## 3. Call Screen and Calling with SinchService
+## 3. Call screen and calling with SinchService
 
 First, go to **DetailViewController.m** and add the following method:
 
@@ -224,7 +224,7 @@ First, go to **DetailViewController.m** and add the following method:
 }
 ```
 
-This is a handy way of displaying a profile picture from a url. Now, locate the method `configureView`. In the if-statement, add the following three lines to display a friend's info:
+This is a handy way of displaying a profile picture from a URL. Now, locate the method `configureView`. In the if-statement, add the following three lines to display a user's info:
 
 ```objective-c
         self.NameLabel.text = self.callFriend.name;
@@ -247,27 +247,27 @@ To display the screen, go back to **MasterViewController.m** and implement this 
 
 Now we can implement calling. Before we can make any calls, we need to create and initialize a client that will handle calls. 
 
-First, go to **AppDelegate.h** and add the following imports:
+Go to **AppDelegate.h** and add the following imports:
 
 ```objective-c
 #import <Sinch/Sinch.h>
 #import <SinchService/SinchService.h>
 ```
-Then, add the following properties to the interface
+Then, add the following properties to the interface:
 
 ```objective-c
 @property (strong, nonatomic) id<SINService> sinch;
 @property (strong, nonatomic) ACAccount *twitterAccount;
 ```
 
-Now, go to **AppDelegate.m**. Add the **SINServiceDelegate** and **SINCallClientDelegate** protocols to the implementation:
+Next, go to **AppDelegate.m**. Add the **SINServiceDelegate** and **SINCallClientDelegate** protocols to the implementation:
 
 ```objective-c
 @interface AppDelegate () <SINServiceDelegate, SINCallClientDelegate>
 @end
 ```
 
-Then, add the following code to `application:didFinishLaunchingWithOptions`:
+Now, add the following code to `application:didFinishLaunchingWithOptions`:
 
 ```objective-c
     id config = [SinchService configWithApplicationKey:@"application-key"
@@ -291,10 +291,10 @@ Then, add the following code to `application:didFinishLaunchingWithOptions`:
      usingBlock:^(NSNotification *note) { onUserDidLogin(note.userInfo[@"userId"]); }];
 ```
 
-Here, we are initializing the SINService object and setting up NSNotificationCenter. We need to set up NSNotificationCenter so we can log users into the app. We can use their usernames.
+Here we are initializing the SINService object and setting up NSNotificationCenter. We need to set up NSNotificationCenter so we can log users into the app using their usernames.
 
 
-Now let's go to **DetailViewController.h**. Go ahead and add the following import:
+Go to **DetailViewController.h** and add the following import:
 
 ```objective-c
 #import <Sinch/Sinch.h>
@@ -306,7 +306,7 @@ Then, add two protocols to make the implementation line look like this:
 @interface DetailViewController : UIViewController <SINCallClientDelegate, SINCallDelegate>
 ```
 
-Now add a property that will hold the user's call:
+Add a property that will hold the user's call:
 
 ```objective-c
 @property (nonatomic, readwrite, strong) id<SINCall> call;
@@ -321,7 +321,7 @@ In **DetailViewController.m**, add the following setter method to properly set t
 }
 ```
 
-Great, now we have a call variable for the call screen, as well as a way to set it. Go back to **AppDelegate.m** and add the following method to handle incoming calls:
+Great! Now we have a call variable for the call screen, as well as a way to set it. Go back to **AppDelegate.m** and add the following method to handle incoming calls:
 
 ```objective-c
 - (void)client:(id<SINCallClient>)client didReceiveIncomingCall:(id<SINCall>)call {
@@ -371,14 +371,14 @@ You'll see that we set the Twitter ACAccount property when this method is called
                 [SharedAppDelegate setTwitterAccount:twitterAccount];
 ```
 
-Ok, now to place a call. Starting the call is quite simple. Go to **MasterViewController.m** and find `tableView:didSelectRowAtIndexPath:`. Replace the `// 4` comment with:
+Now, to place a call, go to **MasterViewController.m** and find `tableView:didSelectRowAtIndexPath:`. Replace the `// 4` comment with:
 
 ```objective-c
 id<SINCall> call = [self.callClient callUserWithId:[callingFriend username]];
 [controller setCall:call];
 ```
 
-You'll see that we get an error. That's because we still need to get the Sinch client from the AppDelegate. Add the following method to return the Sinch client's call client property:
+You'll get an error. That's because we still need to get the Sinch client from the AppDelegate. Add the following method to return the Sinch client's call client property:
 
 ```objective-c
 - (id<SINCallClient>)callClient {
@@ -386,7 +386,7 @@ You'll see that we get an error. That's because we still need to get the Sinch c
 }
 ```
 
-Now whenever a friend is selected, they will be called.
+Now whenever a user is selected, he or she will be called.
 
 Let's finish off the call screen now. Go to **DetailViewController.m** and find `configureView`. Add the following code to the if-statement:
 
@@ -427,6 +427,6 @@ Finally, let's take advantage of some handy delegate methods to change some of t
 ```
 ![call-out](img/Call-out.png)
 
-That's it! You've created an app that helps users call their Twitter friends. As you can see, it's simple to integrate Sinch into your app. There are a few ways that you can improve on this app, but it gets the job done.
+Congrats! You've created a basic app that lets users call people they follow on Twitter. As you can see, it's simple to integrate Sinch into your app. 
 
-One feature you would want to add to this app is Managed Push. You can learn more about Managed Push with SinchService [here](https://github.com/sinch/ios-managedpush-with-sinchservice). You can also find more Sinch tutorials on the [Sinch Tutorial Site](https://www.sinch.com/tutorials/) or on [Sinch's Github](https://github.com/sinch). Of course, you can also find us on Twitter @SinchDev.
+One feature you might want to add to this app is Managed Push. ([Learn more about Managed Push with SinchService](https://github.com/sinch/ios-managedpush-with-sinchservice).) You can also find more Sinch tutorials on the [Sinch tutorial site](https://www.sinch.com/tutorials/) or on [Sinch's GitHub](https://github.com/sinch). Of course, you can also find us on Twitter [@SinchDev](https://twitter.com/sinchdev).
